@@ -1,0 +1,72 @@
+[
+  {
+    "id": 2,
+    "codigo": 2147483647,
+    "timestamp": "2022-06-15T19:18:40.334Z",
+    "nombre": " test PUT 3.33333333",
+    "descripcion": " test PUT 3.33333333",
+    "precio": 333333,
+    "foto": "https://img-9gag-fun.9cache.com/photo/aggpXGx_700bwp.webp",
+    "stock": 333333
+  },
+  {
+    "id": 3,
+    "codigo": 2147483647,
+    "timestamp": "2022-06-15T19:58:53.103Z",
+    "nombre": "test",
+    "descripcion": "test",
+    "precio": 333,
+    "foto": "https://i.imgur.com/JOKsNeT.jpeg",
+    "stock": 200
+  },
+  {
+    "id": 4,
+    "codigo": 2147483647,
+    "timestamp": "2022-06-15T20:05:04.686Z",
+    "nombre": "test",
+    "descripcion": "test",
+    "precio": 23432,
+    "foto": "https://i.imgur.com/EavudiD.jpeg",
+    "stock": 400
+  },
+  {
+    "id": 6,
+    "codigo": 2147483647,
+    "timestamp": "2022-06-16T17:47:16.821Z",
+    "nombre": "Prod 5",
+    "descripcion": "Prod 5",
+    "precio": 500.54,
+    "foto": "https://i.imgur.com/JOKsNeT.jpeg",
+    "stock": 200
+  },
+  {
+    "id": 16,
+    "codigo": 2147483647,
+    "timestamp": "2022-06-16T18:44:13.638Z",
+    "nombre": "Prodaaa",
+    "descripcion": "caracteristicas standar adasd",
+    "precio": 6666,
+    "foto": "https://i.imgur.com/JOKsNeT.jpeg",
+    "stock": 3333
+  },
+  {
+    "id": 18,
+    "codigo": 2147483647,
+    "timestamp": "2022-06-16T18:52:24.212Z",
+    "nombre": "GIF",
+    "descripcion": "GIF",
+    "precio": 10.15,
+    "foto": "https://i.imgur.com/eQoeTGc.gif",
+    "stock": 200
+  },
+  {
+    "timestamp": "2022-08-15T00:46:21.521Z",
+    "nombre": "Mate",
+    "descripcion": "Mate",
+    "precio": "1200",
+    "foto": "https://media.ambito.com/p/e0c57058744b1dd04f3cd5bb6c907d09/adjuntos/239/imagenes/039/792/0039792172/730x0/smart/mate1jpg.jpg",
+    "codigo": 1660524381521,
+    "stock": 200,
+    "id": 7
+  }
+]
