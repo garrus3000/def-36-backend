@@ -6,7 +6,20 @@
         <button class="btn btn-warning float-end m-2" id="btnLogout">Logout</button>
     </div>
 </div>
-
+{{!-- asdasdas --}}
+    <section class="container">
+        <div class="container-fluid bg-dark">
+            {{#each userData}}
+                <ul class="text-center text-white">
+                    <li>{{ this.nombre }}</li>
+                    <li>{{ this.age }}</li>
+                    <li>{{ this.email }}</li>
+                    <li><img src="{{this.thumbnail}}" width="150"></li>
+                </ul>
+            {{/each}}
+        </div>
+    </section>
+{{!-- asdasdas --}}
 <h2 class="text-center mt-3 text-primary">Productos <span class="text-secondary">(HBS)</span></h2>
 <div class="container mt-4 bg-light p-2 border">
     <form action="/productos" enctype="application/x-www-form-urlencoded" method="POST" id="ingresarProducto">

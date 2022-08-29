@@ -1,0 +1,13 @@
+<title>{{title}}</title>
+    <section class="container-fluid">
+        <div class="d-flex border border-1 flex-row justify-content-end align-middle m-0 p-0">
+            {{#each userData}}
+                    <div class="text-primary align-middle p-2">{{ this.nombre }}</div>
+                    <span class="text-primary align-middle p-2">{{ this.email }}</span>
+                    <span class="text-primary align-middle p-2">{{ this.age }}</span>
+                    <span class=" align-middle p-2">{{ this.phone }}</span>
+                    
+            {{/each}}
+            <img src={{userAvatar}} class="rounded-pill"width="100">
+        </div>           
+    </section>

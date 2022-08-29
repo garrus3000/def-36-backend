@@ -37,9 +37,10 @@ passport.use(
             newUser.password = bcrypt.hashSync(password, 10);
 
             if (req.file === undefined) {
-                newUser.thumbnail = "../../public/assets/img/anonimus.jpg";
+                newUser.thumbnail = "public/assets/img/users/anonimus.jpg";
             } else {
-                newUser.thumbnail = req.file.path;
+                let newPath = (req.file.path).replace("public/", '');
+                newUser.thumbnail = newPath;
             }
             await newUser.save();
             return done(null, newUser);

@@ -32,6 +32,15 @@ class UserMongoController {
             throw new Error(error);
         }
     }
+
+    async getByEmail (email) {
+        try {
+            const emailUser = await this.collection.find({email});
+            return emailUser;
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
 }
 
 module.exports = UserMongoController;

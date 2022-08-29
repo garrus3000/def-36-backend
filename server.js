@@ -40,19 +40,20 @@ app.use(compression())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static('public'));
+// app.use(express.static('public'))
+app.use(express.static("public"));
+
 app.engine(
 	'hbs',
 	engine({
 	  extname: '.hbs',
 	  defaultLayout: 'main.hbs',
-	  partialsDir: './public/views/partial'
+	  partialsDir: './public/views/partial/'
 	})
 );
 
 app.set('views', './public/views');
 app.set('view engine', 'hbs');
-
 
 app.use(cookieParser());
 
@@ -72,11 +73,6 @@ app.use(
 	})
 );
 
-//logger info, rutas y metodos
-app.use((req, _, next) => {
-	logger.log("info", `Ruta: ${req.originalUrl} y Metodo: ${req.method} solicitado`);
-	return next();
-});
 
 app.use(routerMensajes);
 
@@ -98,12 +94,6 @@ app.use('/api/randoms', routerRandomNums);
 sockets.scocketMsjAndProd(ioServer);
 
 
-// Ataja errores, logger Errores
-app.use((error, req, res, next) => {
-	loggerError.log("error", error);
-	res.status(500).send(error.message);
-});
-
 // Rutas inexistentes, logger Warnings
 app.use((req, res) => {
 	loggerWarn.log("warn", `Ruta ${req.originalUrl} y metodo ${req.method} no implementada - fyh: ${new Date().toLocaleString()} `)
@@ -112,6 +102,13 @@ app.use((req, res) => {
 		descripcion: `ruta ${req.originalUrl} y metodo ${req.method} no implementada`,
 	});
 });
+
+// Ataja errores, logger Errores
+app.use((error, req, res, next) => {
+	loggerError.log("error", error);
+	res.status(500).send(error.message);
+});
+
 
 
 const PORT = yargArgs.puerto;

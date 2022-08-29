@@ -1,2 +1,3 @@
 node_modules
 src/logs/winston_logs
+.env

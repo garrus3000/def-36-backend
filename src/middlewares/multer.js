@@ -1,7 +1,7 @@
 
 const multer = require("multer");
 
-const uploadFile = () => {
+const uploadFile = (req, res) => {
   const storage = multer.diskStorage({
     destination: "./public/assets/img/users",
 
@@ -9,7 +9,8 @@ const uploadFile = () => {
       const extension = file.originalname.slice(
         file.originalname.lastIndexOf(".")
       );
-      cb(null, Date.now() + extension);
+      // cb(null, Date.now() + extension);
+      cb(null, req.body.email + extension);
     },
   });
 
