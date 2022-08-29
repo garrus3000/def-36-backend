@@ -6,7 +6,8 @@ const {Strategy: LocalStrategy} = require('passport-local');
 const bcrypt = require('bcrypt');
 
 const mongoose = require('mongoose');
-const User = require('../config/models/usuarios.js');
+const usuarioSchema = require('../config/models/usuarios.js');
+const User = mongoose.model('usuarios', usuarioSchema);
 
 mongoose.connect(process.env.MONGO_ATLAS_URL, {
     useNewUrlParser: true,
@@ -46,18 +47,41 @@ passport.use(
     )
 );
 
+passport.use(
+    "login",
+    new LocalStrategy(
+		{passReqToCallback: true},
+		async (req, email, password, callback) => {
+        const user = await User.findOne({ email: email });
+		if(!user) return callback(null, false)
+		const comparar = bcrypt.compareSync(password, user.password)
+		if(!comparar) return callback(null, false);
+		else return callback(null, user)
+        // user.then((usr) => {
+        //     if (!usr || !bcrypt.compareSync(password, usr.password))
+        //         return callback(null, false);
+        //     return callback(null, usr);
+        // });
+    })
+);
 
-passport.use('login', new LocalStrategy((email, password, callback) => {
-	const user = User.findOne({ email: email });
-	user.then(usr => {
-		if (!usr || !bcrypt.compareSync(password, usr.password)) return callback(null, false);
-		return callback(null, usr);
-	});
-}));
+// passport.use(
+//     "login",
+//     new LocalStrategy((email, password, callback) => {
+//         const user = User.findOne({ email: email });
+//         user.then((usr) => {
+//             if (!usr || !bcrypt.compareSync(password, usr.password))
+//                 return callback(null, false);
+//             return callback(null, usr);
+//         });
+//     })
+// );
+
+ 
 
 
 passport.serializeUser((user, callback) => {
-    return callback(null, user.email);
+	return callback(null, user.email)
 });
 
 passport.deserializeUser((id, callback) => {

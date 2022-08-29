@@ -10,7 +10,7 @@ const getRoot = (req, res) => {
 
 const getHome = (req, res) => {
     const user = req.session.passport;
-    if (user !== undefined) return res.render("index", { title: "Productos y Mensajes", user: req.session.passport.user });
+    if (user !== undefined) return res.render("index", { title: "Productos y Mensajes", user: req.session.passport.user});
     else return res.redirect("/login");
 };
 

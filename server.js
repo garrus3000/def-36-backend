@@ -28,6 +28,7 @@ const routerMensajes = require('./src/routes/router.mensajes.js');
 const routerProductos = require('./src/routes/router.productos.js');
 const sockets = require('./src/chat/sockets.js');
 const routerCarritos = require('./src/routes/router.carritos.js');
+const routerUser = require('./src/routes/router.user.js');
 
 
 const app = express();
@@ -80,6 +81,8 @@ app.use((req, _, next) => {
 app.use(routerMensajes);
 
 app.use(routerProductos)
+
+app.use(routerUser)
 
 app.use('/api/carrito',routerCarritos)
 
