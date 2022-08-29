@@ -1,4 +1,5 @@
-const ContenedorMensajes = require("../controllers/mongodb/contenedorMensajes");
+// const ContenedorMensajes = require("../controllers/mongodb/contenedorMensajes");
+const ContenedorMensajes = require("../controllers/file/contenedorMensajes");
 const { loggerError } = require("../logs/winston");
 
 const Router = require("express").Router;

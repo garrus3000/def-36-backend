@@ -14,7 +14,7 @@ routerAll.get("/home", routesHBS.getHome);
 routerAll.
     route("/signup")
         .get(routesHBS.getSignup)
-        .post(uploadFile(), passport.authenticate("signup", {successRedirect:"/login", failureRedirect:"/failsignup"}));
+        .post(uploadFile(), passport.authenticate("signup", {successRedirect:"/login", failureRedirect:"/failsignup"})); //multer
 ;
 routerAll.get("/failsignup", routesHBS.getFailSignup);
 

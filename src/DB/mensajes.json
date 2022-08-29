@@ -291,5 +291,19 @@
     },
     "text": "probando",
     "id_text": 21
+  },
+  {
+    "id": 22,
+    "author": {
+      "email": "asd@asdf.com",
+      "nombre": "Eduardo",
+      "apellido": "Odriozola",
+      "edad": "23",
+      "alias": "TEST",
+      "avatar": "https://pm1.narvii.com/6246/c5e30f0de9d0138046bb8c80fe0c353283fc9de1_hq.jpg",
+      "fecha": "28/8/2022, 21:43:14"
+    },
+    "text": "asdasd",
+    "id_text": 22
   }
 ]

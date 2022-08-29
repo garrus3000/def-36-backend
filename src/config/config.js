@@ -9,10 +9,10 @@ const config = {
             useUnifiedTopology: true
         }
     },
-    fileSystem: {
-        dirProducts: './src/controllers/files/productos.json',
-        dirCarts: './src/controllers/files/carts.json'
-    }
+    // fileSystem: {
+    //     dirProducts: './src/controllers/files/productos.json',
+    //     dirCarts: './src/controllers/files/carts.json'
+    // }
 }
 
 module.exports = config;
