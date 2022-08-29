@@ -1,6 +1,8 @@
 const Router = require('express').Router;
 const routesHBS = require('./routes')
 const passport = require('./passport-local.js');
+const uploadFile = require('../middlewares/multer');
+
 
 const routerAll = Router();
 
@@ -12,7 +14,7 @@ routerAll.get("/home", routesHBS.getHome);
 routerAll.
     route("/signup")
         .get(routesHBS.getSignup)
-        .post(passport.authenticate("signup", {successRedirect:"/login", failureRedirect:"/failsignup"}));
+        .post(uploadFile(), passport.authenticate("signup", {successRedirect:"/login", failureRedirect:"/failsignup"}));
 ;
 routerAll.get("/failsignup", routesHBS.getFailSignup);
 
@@ -26,7 +28,7 @@ routerAll.get('/faillogin', routesHBS.getFailLogin);
 
 // LOGOUT
 routerAll.get("/logout", routesHBS.isItLogged, routesHBS.getLogout);
-routerAll.get("/getuser", routesHBS.isItLogged, routesHBS.getUser);
+// routerAll.get("/getuser", routesHBS.isItLogged, routesHBS.getUser); //sin uso por HBS
 
 
 module.exports = routerAll;

@@ -1,24 +1,17 @@
+
 const dotenv = require('dotenv').config();
 
 
-let productsDao
-let cartDao
+// let productsDao
+// let cartDao
 
 switch (process.env.MOTOR) {
-	// case 'json':
-	// 	const fileDaoCarts  =  require('../daos/carts/fileDaoCarts.js');
-	// 	const fileDaoProducts =  require('../daos/products/fileDaoProducts.js');
-
-	// 	cartDao = new fileDaoCarts();
-	// 	productsDao = new fileDaoProducts();
-	// 	break;
-
 	case 'mongodb':
-		const  mongoDbDaoCarts  =  require('./carts/mongoDbDaoCarts.js');
-		const  mongoDbDaoProducts  =  require('./products/mongoDbDaoProducts.js');
+		const MongoDbDaoCarts = require('./carts/MongoDbDaoCarts')
+		const  MongoDbDaoProducts = require('./products/MongoDbDaoProducts')
 
-		cartDao = new mongoDbDaoCarts();
-		productsDao = new mongoDbDaoProducts();
+		module.exports.cartDao = new MongoDbDaoCarts();
+		module.exports.productsDao = new MongoDbDaoProducts();
 		break;
 
 	default:
@@ -26,4 +19,4 @@ switch (process.env.MOTOR) {
 		break;
 }
 
-module.exports =  { productsDao, cartDao };
+// module.exports = { productsDao, cartDao };

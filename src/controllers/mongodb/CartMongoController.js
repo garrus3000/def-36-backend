@@ -1,40 +1,20 @@
-// import { parse } from "dotenv";
-// import mongoose from "mongoose";
-// import config from "../../configs/config.js";
-// const { parse } = require("dotenv");
+
 const mongoose = require("mongoose");
 const config = require('../../config/config.js');
 const { logger, loggerError } = require("../../logs/winston.js");
 
 try {
     mongoose.connect(config.mongoDb.url, config.mongoDb.options);
-    console.log("Connected to MongoDB Cart");
     logger.log("info","Connected to MongoDB Cart")
 } catch (error) {
-    console.log(error);
     loggerError.log("error",error)
 };
 
-// const prodSchema = new mongoose.Schema({
-//     timestamp: { type: String, required: true, max: 50 },
-//     nombre: { type: String, required: true, max: 100 },
-//     descripcion: { type: String, required: true, max: 400 },
-//     codigo: { type: String, required: true },
-//     precio: { type: Number, required: true },
-//     stock: { type: Number, required: true },
-//     id : { type: Number }
-// });
-
-const schema = new mongoose.Schema({
-    id: { type: Number, required: true },
-    timestamp: { type: Number },
-    productos: { type: Array },
-});
-
 
 class CartMongoController {
-    constructor() {
-        this.collection = mongoose.model("carts", schema);
+
+    constructor(collection, schema) {
+        this.collection = mongoose.model(collection, schema)
     }
 
     getAllCart = async () => {
@@ -61,7 +41,7 @@ class CartMongoController {
                 };
                 const newElement = new this.collection(carrito);
                 const result = await newElement.save();
-                return result.id;
+                return result.id
             }
         } catch (error){
             throw new Error("Error", error);
@@ -77,26 +57,54 @@ class CartMongoController {
         }
     };
 
-    addProduct = async (id, newElement) => {
-        try {
-            if (!mongoose.Types.ObjectId.isValid(id)) return null;
+    addProduct = async (id, prod) => {
+        if (!mongoose.Types.ObjectId.isValid(id)) return null;
             else {
-                const carrito = await this.collection.findById(id);
-                if (carrito !== null) {
-                    carrito.productos.push(newElement);
-                    const result = await this.collection.findByIdAndUpdate(
-                        id,
-                        carrito
-                    );
-                    return result;
-                } else return null;
+                const cart = await this.collection.findOne({ _id:id });
+                if (cart !== null) {
+                    const productos = cart.productos;
+                    const mapOfProdsIds = productos.map((producto) => JSON.stringify(producto._id));
+                    const index = mapOfProdsIds.indexOf(JSON.stringify(prod._id));
+                    // const prodExistInCart = mapOfProdsIds.includes(JSON.stringify(prod._id))
+                    
+                    if(index !== -1){
+                        cart.productos[index].cantidad +=1;
+                        const result = await this.collection.findByIdAndUpdate(id, cart);
+                        console.log(cart.productos[index].cantidad)
+                        return result
+                    }
+                    else{
+                        prod.cantidad = 1;
+                        await cart.productos.push(prod);
+                        const result = await this.collection.findByIdAndUpdate(id, cart);
+                        return result;            
+                    }
+                }
+                else return null; 
             }
-        } catch (error) {
-            console.log(error);
-            loggerError.log(error)
-            throw new Error("Error adding product", error);
-        }
     };
+    // addProduct = async (id, id_prod) => {
+    //     try {
+    //         if (!mongoose.Types.ObjectId.isValid(id)) return null;
+    //         else {
+    //             const carrito = await this.collection.findById(id);
+    //             if (carrito !== null) {
+                    
+                
+    //                 carrito.productos.push(id_prod);
+    //                 const result = await this.collection.findByIdAndUpdate(
+    //                     id,
+    //                     carrito
+    //                 );
+    //                 return result;
+    //             } else return null;
+    //         }
+    //     } catch (error) {
+    //         console.log(error);
+    //         loggerError.log(error)
+    //         throw new Error("Error adding product", error);
+    //     }
+    // };
 
     getById = async (id) => {
         try {
@@ -135,5 +143,4 @@ class CartMongoController {
     };
 }
 
-// export default CartMongoController;
 module.exports = CartMongoController;

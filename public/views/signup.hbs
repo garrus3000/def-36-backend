@@ -5,12 +5,29 @@
         <div>
             <h2 class="text-primary"><span class="fst-italic fw-bold border-bottom border-primary">Registro</span> de Usuario</h2>
             <br>
-            <form action="/signup" method="post" id="formLogin" autocomplete="off">
+            <form action="/signup" method="post" enctype="multipart/form-data" id="formLogin" autocomplete="off">
                 <div class="form-group">
-                    <label for="username" class="fs-5 fw-semibold fst-italic">Ingrese su email</label>
-                    <input id="username" class="form-control" type="email" name="username" required>
+                    <label for="email" class="fs-5 fw-semibold fst-italic">Ingrese su email</label>
+                    <input id="email" class="form-control" type="email" name="email" required>
                     <label for="password" class="fs-5 fw-semibold fst-italic mt-4">Ingrese su contraseña</label>
                     <input id="password" class="form-control" type="password" name="password" required>
+
+                    <label for="nombre" class="fs-5 fw-semibold fst-italic">nombre</label>
+                    <input id="nombre" class="form-control" type="text" name="nombre" required>
+
+                    <label for="age" class="fs-5 fw-semibold fst-italic">Edad</label>
+                    <input id="age" class="form-control" type="number" name="age" required>
+
+                    <label for="adress" class="fs-5 fw-semibold fst-italic">adress</label>
+                    <input id="adress" class="form-control" type="text" name="adress" required>
+
+                    <label for="phone" class="fs-5 fw-semibold fst-italic">phone</label>
+                    <input id="phone" class="form-control" type="text" name="phone" required>
+
+                    <span>Not required</span>
+                    <label for="thumbnail"class="form-label mt-3">Imagen de perfil</label>
+                    <input type="file" name="thumbnail" class="form-control" accept="img/*">   
+                    
                 </div>
                 <!-- <button class="btn btn-success mt-3" id="btnLogin">Enviar</button> -->
                 <button class="btn btn-success mt-3" id="btnLogin" type="submit">Enviar</button>

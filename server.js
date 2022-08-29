@@ -27,6 +27,7 @@ const { logger, loggerWarn, loggerError } = require('./src/logs/winston.js');
 const routerMensajes = require('./src/routes/router.mensajes.js');
 const routerProductos = require('./src/routes/router.productos.js');
 const sockets = require('./src/chat/sockets.js');
+const routerCarritos = require('./src/routes/router.carritos.js');
 
 
 const app = express();
@@ -44,6 +45,7 @@ app.engine(
 	engine({
 	  extname: '.hbs',
 	  defaultLayout: 'main.hbs',
+	  partialsDir: './public/views/partial'
 	})
 );
 
@@ -75,9 +77,11 @@ app.use((req, _, next) => {
 	return next();
 });
 
-app.use( routerMensajes);
+app.use(routerMensajes);
 
 app.use(routerProductos)
+
+app.use('/api/carrito',routerCarritos)
 
 app.use('/api', fakerRouterProds);
 

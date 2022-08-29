@@ -2,42 +2,32 @@ const Router = require("express").Router;
 const routerProductos = Router();
 
 
-// const ContenedorProductos = require("../controllers/contenedorProductos");
-// const productosDao = require('../daos/index.js')
-
-// const ContenedorProductos = require('../controllers/mongodb/ProdMongoController')
-
+const { productsDao } = require("../daos");
 const {loggerError} = require("../logs/winston");
 
-
-// const productos = new ContenedorProductos("./src/DB/productos.json");
-// const productos = productosDao;
-
-const productosDao = require('../daos/index.js')
-
-const productos = productosDao;
+const productos = productsDao;
 
 
 routerProductos.get('/api/productos', async (req, res) => {
-    res.status(200).send(await productos.productsDao.getAll())
+    res.status(200).send(await productos.getAll())
 });
 
 routerProductos.get("/api/productos/:id?", async (req, res) => {
     const id = req.params.id;
-    const productoPorId = await productos.productsDao.getById(id);
+    const productoPorId = await productos.getById(id);
     if (productoPorId !== null) return res.status(200).send(productoPorId);
     else {
         loggerError.log({
             level: "error",
             message: `Error Metodo: ${req.method} Producto ${id} no existe`,
         });
-        return res.status(404).send(await productos.productsDao.getAll());
+        return res.status(404).send(await productos.getAll());
     }
 });
 
 routerProductos.post("/api/productos", async (req, res) => {
     const producto = req.body;
-    const producto_agregado = await productos.productsDao.save(
+    const producto_agregado = await productos.save(
         producto,
         (producto.codigo = Date.now()),
         (producto.timestamp = new Date().toISOString())
@@ -47,9 +37,9 @@ routerProductos.post("/api/productos", async (req, res) => {
 
 routerProductos.delete("/api/productos/:id", async (req, res) => {
     const id = req.params.id;
-    const productoPorId = await productos.productsDao.getById(id);
+    const productoPorId = await productos.getById(id);
     if (productoPorId !== null) {
-        await productos.productsDao.deleteById(id);
+        await productos.deleteById(id);
         return res.status(201).send(`Producto ID: ${id} borrado`);
     } else {
         loggerError.log({

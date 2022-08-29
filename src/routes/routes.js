@@ -10,13 +10,13 @@ const getRoot = (req, res) => {
 
 const getHome = (req, res) => {
     const user = req.session.passport;
-    if (user !== undefined) res.render("index", { title: "Productos y Mensajes", user: req.session.passport.user });
-    else res.redirect("/login");
+    if (user !== undefined) return res.render("index", { title: "Productos y Mensajes", user: req.session.passport.user });
+    else return res.redirect("/login");
 };
 
 const getSignup = (req, res) => {
-    if (req.session.passport !== undefined) res.redirect("/home");
-    else res.render("signup", { title: "Signup" });
+    if (req.session.passport !== undefined) return res.redirect("/home");
+    else return res.render("signup", { title: "Signup" });
 };
 
 const getFailSignup = (req, res) => {
@@ -24,20 +24,20 @@ const getFailSignup = (req, res) => {
 };
 
 const getLogin = (req, res) => {
-    if (req.session.passport !== undefined) res.redirect("/home");
-    res.render("login", { title: "Login" });
+    if (req.session.passport !== undefined) return res.redirect("/home");
+    return res.render("login", { title: "Login" });
 };
 
 const postLogin = (req, res) => {
-    res.redirect("/home");
+    return res.redirect("/home");
 };
 
 const getFailLogin = (req, res) => {
-    res.render("faillogin");
+    return res.render("faillogin");
 };
 
 const getUser = (req, res) => {
-    if (req.session.passport !== undefined) res.send(req.session.passport.user);
+    if (req.session.passport !== undefined) return res.send(req.session.passport.user);
     else res.redirect("/logout");
 }
 
@@ -50,7 +50,7 @@ const getLogout = (req, res) => {
     const user = req.session.passport.user;
     req.session.destroy((err) => {
         if(err) console.log(err);
-        res.render('logout', {user: user});
+        return res.render('logout', {user: user});
     });
 };
 

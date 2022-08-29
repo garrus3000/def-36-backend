@@ -115,34 +115,34 @@ const renderMensajes = (msj) => {
     Mostrar por console.log del NAVEGADOR proceso de NORMALIZACION de mensajes
     Mostart porcentaje de compresion en index.html
 */
-const renderCompresion = (msj) => {
-    const textSchema = new normalizr.schema.Entity('text', {idAttribute: "id_text" });
-    const authorSchema = new normalizr.schema.Entity('autores', { text: textSchema}, { idAttribute: "email" });
-    const mensajesSchema = new normalizr.schema.Entity('mensajes', { author: authorSchema });
+// const renderCompresion = (msj) => {
+//     const textSchema = new normalizr.schema.Entity('text', {idAttribute: "id_text" });
+//     const authorSchema = new normalizr.schema.Entity('autores', { text: textSchema}, { idAttribute: "email" });
+//     const mensajesSchema = new normalizr.schema.Entity('mensajes', { author: authorSchema });
 
 
-    const _normalizado = normalizr.normalize(msj, [mensajesSchema]);
-    console.log("Normalizado :", _normalizado);
-    const _desnormalizado = normalizr.denormalize(_normalizado.result, [mensajesSchema],_normalizado.entities );
-    console.log("Desnormalizado :",_desnormalizado);
+//     const _normalizado = normalizr.normalize(msj, [mensajesSchema]);
+//     console.log("Normalizado :", _normalizado);
+//     const _desnormalizado = normalizr.denormalize(_normalizado.result, [mensajesSchema],_normalizado.entities );
+//     console.log("Desnormalizado :",_desnormalizado);
 
-    console.log('Length Original :', JSON.stringify(msj).length)
-    console.log('Length Normalizado :', JSON.stringify(_normalizado).length)
-    console.log('Length Desnormalizado :', JSON.stringify(_desnormalizado).length)
-    const compresion = ((JSON.stringify(_normalizado).length * 100)  / JSON.stringify(msj).length).toFixed(2);
+//     console.log('Length Original :', JSON.stringify(msj).length)
+//     console.log('Length Normalizado :', JSON.stringify(_normalizado).length)
+//     console.log('Length Desnormalizado :', JSON.stringify(_desnormalizado).length)
+//     const compresion = ((JSON.stringify(_normalizado).length * 100)  / JSON.stringify(msj).length).toFixed(2);
     
 
-    console.log('Compresion :', compresion + ' %');
+//     console.log('Compresion :', compresion + ' %');
 
-    const _mostrarCompHTML = document.getElementById("compresion");
-    _mostrarCompHTML.innerHTML = `Compresion: ${compresion} %`;
-}
+//     const _mostrarCompHTML = document.getElementById("compresion");
+//     _mostrarCompHTML.innerHTML = `Compresion: ${compresion} %`;
+// }
 
-const FetchUser = () => {
-    fetch("/getuser")
-        .then((response) => response)
-        .then((data) => data === data.text().then((user) => console.log("User: ",user)));
-};
+// const FetchUser = () => {
+//     fetch("/getuser")
+//         .then((response) => response)
+//         .then((data) => data === data.text().then((user) => console.log("User: ",user)));
+// };
 
 /*
     Con funcion FetchUser() en socket.on("messages")
@@ -152,8 +152,8 @@ const FetchUser = () => {
 */
 socket.on("messages", (msj) => {
     renderMensajes(msj);
-    renderCompresion(msj);
-    FetchUser();
+    // renderCompresion(msj);
+    // FetchUser(); //sin uso por HBS
 });
 
 const btnLogout = () => {

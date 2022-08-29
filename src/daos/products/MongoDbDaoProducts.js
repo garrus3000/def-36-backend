@@ -10,7 +10,8 @@ const schema = new mongoose.Schema({
     codigo: {type: Number, required: true},
     foto: {type: String, required: true},
     precio: {type: Number, required: true},
-    stock: {type: Number, required: true}
+    stock: {type: Number, required: true},
+    cantidad: {type: Number, require: false}
 });
 
 
