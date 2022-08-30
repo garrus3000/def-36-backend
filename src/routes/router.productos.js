@@ -3,7 +3,8 @@ const routerProductos = Router();
 
 
 const { productsDao } = require("../daos");
-const {loggerError} = require("../logs/winston");
+const { loggerError } = require("../logs/winston");
+
 
 const productos = productsDao;
 
@@ -52,7 +53,7 @@ routerProductos.delete("/api/productos/:id", async (req, res) => {
 
 routerProductos.put("/api/productos/:id", async (req, res) => {
     const id = req.params.id;
-    const exist = await productos.productsDao.getById(id);
+    const exist = await productos.getById(id);
     if (exist !== null) {
         const { nombre, precio, foto, stock } = req.body;
         const prod_editado = await productos.productsDao.updateById((id), {

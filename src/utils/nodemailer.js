@@ -1,19 +1,41 @@
-const nodemailer = require('nodemailer')
+require('dotenv').config({path: '../../.env'});
+const nodemailer = require('nodemailer');
+const { loggerError, logger } = require('../logs/winston');
 
-const transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
-    auth: {
-        user: 'anita98@ethereal.email',
-        pass: 'HG9KhDKvRTtvFPK4wa'
+
+const sendMailNewUserData = (nombre, email, age, adress, phone) => {
+    try {
+        const transporterGmail = nodemailer.createTransport({
+            service: "gmail",
+            port: 587,
+            auth: {
+                user: process.env.GMAIL_ADRESS,
+                pass: process.env.GMAIL_PWD,
+            },
+        });
+
+        transporterGmail
+            .sendMail({
+                from: `CH Clase 36 <${process.env.GMAIL_ADRESS}>`,
+                to: process.env.GMAIL_ADRESS,
+                subject: "Nuevo usuario",
+                html: `
+                <h1 style="color:green>Nuevo Usuario Registrado</h1>
+                <h2 style="color:blue>Datos:</h2>
+                <p>Nombre: ${nombre}</p>
+                <p>Email: ${email}</p>
+                <p>Edad: ${age}</p>
+                <p>Dirección: ${adress}</p>
+                <p>Teléfono: ${phone}</p>
+                `,
+            })
+            .then((result) => {
+                logger.log("Nuevo usuario registrado. Email con datos enviado exitosamente");
+            })
+            .catch((error) => loggerError.log("error", error));
+    } catch (error) {
+        loggerError.log("Error en nodemailer al registrar un usuario", error);
     }
-});
+};
 
-transporter.sendMail({
-    from: 'TEST <anita98@ethereal.email>',
-    to: 'anita98@ethereal.email',
-    subject: 'un test de nodemailer',
-    html: `<h1>HOla TeST <span style="color:blue;">en axul</span></h1>`,
-  }).then((result) => {
-    console.log(result);
-  }).catch(console.log);
+module.exports = sendMailNewUserData;
