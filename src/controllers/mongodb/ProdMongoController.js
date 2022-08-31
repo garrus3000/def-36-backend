@@ -1,5 +1,4 @@
-// import mongoose from "mongoose";
-// import config from "../../configs/config.js";
+
 const mongoose = require("mongoose");
 const config = require('../../config/config.js');
 const { logger, loggerError } = require("../../logs/winston.js");
@@ -74,5 +73,4 @@ class ProdMongoController {
     }
 }
 
-// export default ProdMongoController;
 module.exports = ProdMongoController;
