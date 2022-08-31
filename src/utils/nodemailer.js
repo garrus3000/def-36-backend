@@ -18,7 +18,7 @@ const sendMailNewUserData = (nombre, email, age, adress, phone) => {
             .sendMail({
                 from: `CH Clase 36 <${process.env.GMAIL_ADRESS}>`,
                 to: process.env.GMAIL_ADRESS,
-                subject: "Nuevo usuario",
+                subject: "Nuevo registro",
                 html: `
                 <h1 style="color:green>Nuevo Usuario Registrado</h1>
                 <h2 style="color:blue>Datos:</h2>

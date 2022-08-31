@@ -8,7 +8,9 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 const usuarioSchema = require('../config/models/usuarios.js');
 const sendMailNewUserData = require('../utils/nodemailer.js');
+const { cartDao } = require('../daos/index.js');
 const User = mongoose.model('usuarios', usuarioSchema);
+
 
 mongoose.connect(process.env.MONGO_ATLAS_URL, {
     useNewUrlParser: true,
@@ -28,15 +30,16 @@ passport.use(
             if (usuario) {
                 return done(null, false);
             }
+            const userCart = await cartDao.createCarrito()
             const newUser = new User();
             const { nombre, age, phone, adress } = req.body; //campos por formulario
+            newUser.cart = userCart;
             newUser.nombre = nombre;
             newUser.age = age;
             newUser.phone = phone;
             newUser.adress = adress;
             newUser.email = email;
             newUser.password = bcrypt.hashSync(password, 10);
-
             if (req.file === undefined) {
                 newUser.thumbnail = "public/assets/img/users/anonimus.jpg";
             } else {
@@ -44,7 +47,7 @@ passport.use(
                 newUser.thumbnail = newPath;
             }
             await newUser.save();
-            sendMailNewUserData(nombre, email, age, adress, phone);
+            // sendMailNewUserData(nombre, email, age, adress, phone); //manda mail al admin
             return done(null, newUser);
         }
     )

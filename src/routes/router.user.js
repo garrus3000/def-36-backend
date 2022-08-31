@@ -10,9 +10,10 @@ routerUser.get('/user', isAuth, async (req, res) =>{
     const {user} = req.session.passport;
     const data = await userDao.getByEmail(user);
     const userData = await userDao.getById(data[0]._id)
-    /// avatar y anon
+    const string = JSON.stringify(userData);
+    const parseado = JSON.parse(string)
     const userAvatar = userData.thumbnail.split('public')[1];
-    res.render('user', {title: "Perfil", userData: userData, userAvatar: userAvatar})
+    res.render('user', {title: "Perfil", parseado,  userAvatar: userAvatar})
 });
 
 module.exports = routerUser;

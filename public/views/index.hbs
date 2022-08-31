@@ -1,25 +1,15 @@
 <title>{{title}}</title>
 
-<div class="alert alert-secondary alert-dismissible container mt-5 bg-light p-2 border border-1">
+{{!-- <h1 class="fs-5 text-center text-bg-success p-2 mb-0">CoderHouse - Curso Backend</h1> --}}
+
+<div class="container-fluid bg-light p-5 border border-1">
     <div class="fs-3 text-success">
         Bienvenido <span class="text-primary fw-semibold fs-3">{{user}}</span>
+        <a class="btn btn-primary float-end m-2" href="/user">Perfil</a>
         <button class="btn btn-warning float-end m-2" id="btnLogout">Logout</button>
     </div>
 </div>
-{{!-- asdasdas --}}
-    <section class="container">
-        <div class="container-fluid bg-dark">
-            {{#each userData}}
-                <ul class="text-center text-white">
-                    <li>{{ this.nombre }}</li>
-                    <li>{{ this.age }}</li>
-                    <li>{{ this.email }}</li>
-                    <li><img src="{{this.thumbnail}}" width="150"></li>
-                </ul>
-            {{/each}}
-        </div>
-    </section>
-{{!-- asdasdas --}}
+
 <h2 class="text-center mt-3 text-primary">Productos <span class="text-secondary">(HBS)</span></h2>
 <div class="container mt-4 bg-light p-2 border">
     <form action="/productos" enctype="application/x-www-form-urlencoded" method="POST" id="ingresarProducto">

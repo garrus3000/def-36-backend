@@ -18,7 +18,9 @@ routerCarritos.get("/", async ( req, res) => {
 
 routerCarritos.post("/",  async (req, res) => {
     const id = await carritos.createCarrito();
-    res.status(201).send(`Carrito creado con el id: ${id} correctamente`);
+    // res.status(201).send(`Carrito creado con el id: ${id} correctamente`);
+    // logica para "/user"
+    res.redirect("/user")
 });
 
 routerCarritos.delete("/:id", async (req, res) => {

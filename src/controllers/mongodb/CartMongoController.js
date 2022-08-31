@@ -32,7 +32,7 @@ class CartMongoController {
                 const carrito = { id: 1, timestamp: Date.now(), productos: [] };
                 const newElement = new this.collection(carrito);
                 const result = await newElement.save();
-                return result.id;
+                return result._id;
             } else {
                 const carrito = {
                     id: carritos.length + 1,
@@ -41,7 +41,7 @@ class CartMongoController {
                 };
                 const newElement = new this.collection(carrito);
                 const result = await newElement.save();
-                return result.id
+                return result._id
             }
         } catch (error){
             throw new Error("Error", error);
@@ -70,7 +70,6 @@ class CartMongoController {
                     if(index !== -1){
                         cart.productos[index].cantidad +=1;
                         const result = await this.collection.findByIdAndUpdate(id, cart);
-                        console.log(cart.productos[index].cantidad)
                         return result
                     }
                     else{
@@ -83,28 +82,6 @@ class CartMongoController {
                 else return null; 
             }
     };
-    // addProduct = async (id, id_prod) => {
-    //     try {
-    //         if (!mongoose.Types.ObjectId.isValid(id)) return null;
-    //         else {
-    //             const carrito = await this.collection.findById(id);
-    //             if (carrito !== null) {
-                    
-                
-    //                 carrito.productos.push(id_prod);
-    //                 const result = await this.collection.findByIdAndUpdate(
-    //                     id,
-    //                     carrito
-    //                 );
-    //                 return result;
-    //             } else return null;
-    //         }
-    //     } catch (error) {
-    //         console.log(error);
-    //         loggerError.log(error)
-    //         throw new Error("Error adding product", error);
-    //     }
-    // };
 
     getById = async (id) => {
         try {
